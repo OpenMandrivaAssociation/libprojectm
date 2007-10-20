@@ -18,6 +18,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires: libftgl-devel
 BuildRequires: cmake
 BuildRequires: libglew-devel
+Requires: %name-data >= %version
 
 %description
 projectM is a reimplementation of Milkdrop under OpenGL.
@@ -26,10 +27,8 @@ projectM is a reimplementation of Milkdrop under OpenGL.
 %package -n %libname
 Summary: Visualization library for OpenGL based on Milkdrop
 Group: System/Libraries
-%endif
 Requires: %name-data >= %version
 
-%if %_lib != lib
 %description -n %libname
 projectM is a reimplementation of Milkdrop under OpenGL.
 %endif
