@@ -1,23 +1,38 @@
 %define name libprojectm
-%define version 0.99
-%define release %mkrel 2
+%define version 1.01
+%define release %mkrel 1
 %define oname libprojectM
-%define major 0
-%define libname %mklibname projectm %major
+%define libname %mklibname projectm 
+%define develname %mklibname -d projectm
 
 Summary: Visualization library for OpenGL based on Milkdrop 
 Name: %{name}
 Version: %{version}
 Release: %{release}
 Source0: %{oname}-%{version}.tar.bz2
+Patch: libprojectM-1.01-lib64.patch
 License: LGPL
 Group: System/Libraries
 Url: http://xmms-projectm.sourceforge.net/
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires: libftgl-devel
+BuildRequires: cmake
+BuildRequires: libglew-devel
 
 %description
 projectM is a reimplementation of Milkdrop under OpenGL.
+
+%if %_lib != lib
+%package -n %libname
+Summary: Visualization library for OpenGL based on Milkdrop
+Group: System/Libraries
+%endif
+Requires: %name-data >= %version
+
+%if %_lib != lib
+%description -n %libname
+projectM is a reimplementation of Milkdrop under OpenGL.
+%endif
 
 %package data
 Summary: Visualization library for OpenGL based on Milkdrop 
@@ -27,32 +42,28 @@ Group: Graphics
 projectM is a reimplementation of Milkdrop under OpenGL. This contains data
 files and presets.
 
-%package -n %libname
-Summary: Visualization library for OpenGL based on Milkdrop
-Group: System/Libraries
-Requires: %name-data >= %version
-
-%description -n %libname
-projectM is a reimplementation of Milkdrop under OpenGL.
-
-%package -n %libname-devel
+%package -n %develname
 Summary: Visualization library for OpenGL based on Milkdrop
 Group: Development/C
 Requires: %libname = %version
 Provides: libprojectm-devel = %version-%release
+Obsoletes: %mklibname -d projectm 0
+Requires: libglew-devel
 
-%description -n %libname-devel
+%description -n %develname
 projectM is a reimplementation of Milkdrop under OpenGL.
 
 
 %prep
-%setup -q -n %oname
-aclocal -I m4
-autoconf
-automake
+%setup -q -n %oname-%version
+%patch -p1
 
 %build
-%configure2_5x
+cmake . -DCMAKE_INSTALL_PREFIX=%_prefix \
+%if "%_lib" != "lib" 
+    -DLIB_SUFFIX=64
+%endif
+
 %make
 
 %install
@@ -72,14 +83,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n %libname
 %defattr(-,root,root)
-%_libdir/libprojectM.so.%{major}*
-
-%files -n %libname-devel
-%defattr(-,root,root)
 %_libdir/libprojectM.so
-%_libdir/libprojectM.a
-%_libdir/libprojectM.la
+
+%files -n %develname
+%defattr(-,root,root)
 %_libdir/pkgconfig/*.pc
-%_includedir/projectM/
+%_includedir/libprojectM/
 
 
