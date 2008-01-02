@@ -14,6 +14,7 @@ Patch: libprojectM-1.01-lib64.patch
 License: LGPL
 Group: System/Libraries
 Url: http://xmms-projectm.sourceforge.net/
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires: libftgl-devel
 BuildRequires: cmake
 BuildRequires: libglew-devel
