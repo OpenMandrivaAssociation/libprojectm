@@ -1,6 +1,6 @@
 %define name libprojectm
 %define version 1.01
-%define release %mkrel 4
+%define release %mkrel 5
 %define oname libprojectM
 %define libname %mklibname projectm 
 %define develname %mklibname -d projectm
@@ -11,6 +11,13 @@ Version: %{version}
 Release: %{release}
 Source0: %{oname}-%{version}.tar.bz2
 Patch: libprojectM-1.01-lib64.patch
+# gw Debian patches:
+# gw fix crash on 64 bit
+Patch1: 01_soil_64bit_fixes.dpatch
+# gw fix problems with the closed Radeon driver
+Patch2: 04_fix_brokenness_on_radeon_cards.dpatch
+# gw fix build with gcc 4.3
+Patch3: libprojectM-1.01-gcc43.patch
 License: LGPL
 Group: System/Libraries
 Url: http://xmms-projectm.sourceforge.net/
@@ -56,6 +63,9 @@ projectM is a reimplementation of Milkdrop under OpenGL.
 %prep
 %setup -q -n %oname-%version
 %patch -p1
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
 
 %build
 cmake . -DCMAKE_INSTALL_PREFIX=%_prefix \
