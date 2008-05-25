@@ -5,6 +5,7 @@
 %define major 2
 %define libname %mklibname projectm %major
 %define develname %mklibname -d projectm
+%define oldlibname %mklibname projectm
 
 Summary: Visualization library for OpenGL based on Milkdrop 
 Name: %{name}
@@ -49,6 +50,7 @@ Requires: %libname = %epoch:%version
 Provides: libprojectm-devel = %epoch:%version-%release
 Obsoletes: %mklibname -d projectm 0
 Requires: libglew-devel
+Conflicts: %oldlibname
 
 %description -n %develname
 projectM is a reimplementation of Milkdrop under OpenGL.
