@@ -1,8 +1,9 @@
 %define name libprojectm
-%define version 1.01
-%define release %mkrel 5
+%define version 1.1
+%define release %mkrel 1
 %define oname libprojectM
-%define libname %mklibname projectm 
+%define major 2
+%define libname %mklibname projectm %major
 %define develname %mklibname -d projectm
 
 Summary: Visualization library for OpenGL based on Milkdrop 
@@ -10,15 +11,8 @@ Name: %{name}
 Version: %{version}
 Release: %{release}
 Source0: %{oname}-%{version}.tar.bz2
-Patch: libprojectM-1.01-lib64.patch
-# gw Debian patches:
-# gw fix crash on 64 bit
-Patch1: 01_soil_64bit_fixes.dpatch
-# gw fix problems with the closed Radeon driver
-Patch2: 04_fix_brokenness_on_radeon_cards.dpatch
-# gw fix build with gcc 4.3
-Patch3: libprojectM-1.01-gcc43.patch
-License: LGPL
+Patch: libprojectM-1.1-lib64.patch
+License: LGPLv2+
 Group: System/Libraries
 Url: http://xmms-projectm.sourceforge.net/
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -30,7 +24,6 @@ Requires: %name-data >= %version
 %description
 projectM is a reimplementation of Milkdrop under OpenGL.
 
-%if %_lib != lib
 %package -n %libname
 Summary: Visualization library for OpenGL based on Milkdrop
 Group: System/Libraries
@@ -38,7 +31,7 @@ Requires: %name-data >= %version
 
 %description -n %libname
 projectM is a reimplementation of Milkdrop under OpenGL.
-%endif
+
 
 %package data
 Summary: Visualization library for OpenGL based on Milkdrop 
@@ -62,22 +55,16 @@ projectM is a reimplementation of Milkdrop under OpenGL.
 
 %prep
 %setup -q -n %oname-%version
-%patch -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
+%patch -p1 -b .lib64
 
 %build
-cmake . -DCMAKE_INSTALL_PREFIX=%_prefix \
-%if "%_lib" != "lib" 
-    -DLIB_SUFFIX=64
-%endif
-
+%cmake
 %make
+cp config.inp ..
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%makeinstall_std
+%makeinstall_std -C build
 
 %post -n %libname -p /sbin/ldconfig
 %postun -n %libname -p /sbin/ldconfig
@@ -92,11 +79,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n %libname
 %defattr(-,root,root)
-%_libdir/libprojectM.so
+%_libdir/libprojectM.so.%{major}*
 
 %files -n %develname
 %defattr(-,root,root)
 %_libdir/pkgconfig/*.pc
 %_includedir/libprojectM/
-
+%_libdir/libprojectM.so
 
