@@ -10,6 +10,7 @@ Summary: Visualization library for OpenGL based on Milkdrop
 Name: %{name}
 Version: %{version}
 Release: %{release}
+Epoch: 1
 Source0: %{oname}-%{version}.tar.bz2
 Patch: libprojectM-1.1-lib64.patch
 License: LGPLv2+
@@ -19,7 +20,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires: libftgl-devel
 BuildRequires: cmake
 BuildRequires: libglew-devel
-Requires: %name-data >= %version
+Requires: %name-data >= %epoch:%version
 
 %description
 projectM is a reimplementation of Milkdrop under OpenGL.
@@ -27,7 +28,7 @@ projectM is a reimplementation of Milkdrop under OpenGL.
 %package -n %libname
 Summary: Visualization library for OpenGL based on Milkdrop
 Group: System/Libraries
-Requires: %name-data >= %version
+Requires: %name-data >= %epoch:%version
 
 %description -n %libname
 projectM is a reimplementation of Milkdrop under OpenGL.
@@ -44,8 +45,8 @@ files and presets.
 %package -n %develname
 Summary: Visualization library for OpenGL based on Milkdrop
 Group: Development/C
-Requires: %libname = %version
-Provides: libprojectm-devel = %version-%release
+Requires: %libname = %epoch:%version
+Provides: libprojectm-devel = %epoch:%version-%release
 Obsoletes: %mklibname -d projectm 0
 Requires: libglew-devel
 
