@@ -1,5 +1,5 @@
 %define name libprojectm
-%define version 1.1
+%define version 1.2.0
 %define release %mkrel 1
 %define oname libprojectM
 %define major 2
@@ -13,7 +13,6 @@ Version: %{version}
 Release: %{release}
 Epoch: 1
 Source0: %{oname}-%{version}.tar.bz2
-Patch: libprojectM-1.1-lib64.patch
 License: LGPLv2+
 Group: System/Libraries
 Url: http://xmms-projectm.sourceforge.net/
@@ -58,12 +57,11 @@ projectM is a reimplementation of Milkdrop under OpenGL.
 
 %prep
 %setup -q -n %oname-%version
-%patch -p1 -b .lib64
 
 %build
+export LDFLAGS=-lpthread
 %cmake
 %make
-cp config.inp ..
 
 %install
 rm -rf $RPM_BUILD_ROOT
