@@ -1,6 +1,6 @@
 %define name libprojectm
 %define version 1.2.0
-%define release %mkrel 2
+%define release %mkrel 3
 %define oname libprojectM
 %define major 2
 %define libname %mklibname projectm %major
@@ -39,6 +39,7 @@ projectM is a reimplementation of Milkdrop under OpenGL.
 %package data
 Summary: Visualization library for OpenGL based on Milkdrop 
 Group: Graphics
+Requires:	fonts-ttf-bitstream-vera
 
 %description data
 projectM is a reimplementation of Milkdrop under OpenGL. This contains data
@@ -69,6 +70,10 @@ export LDFLAGS=-lpthread
 %install
 rm -rf $RPM_BUILD_ROOT
 %makeinstall_std -C build
+
+#replace by symlink
+ln -sf %_datadir/fonts/TTF/{Vera.ttf,VeraMono.ttf} %buildroot%_datadir/projectM/fonts/
+
 
 %if %mdkversion < 200900
 %post -n %libname -p /sbin/ldconfig
