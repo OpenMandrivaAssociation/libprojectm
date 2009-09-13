@@ -1,6 +1,6 @@
 %define name libprojectm
 %define version 1.2.0
-%define release %mkrel 3
+%define release %mkrel 4
 %define oname libprojectM
 %define major 2
 %define libname %mklibname projectm %major
