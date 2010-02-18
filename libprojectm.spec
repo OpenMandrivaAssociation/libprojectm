@@ -1,6 +1,6 @@
 %define name libprojectm
-%define version 1.2.0
-%define release %mkrel 4
+%define version 2.0.0
+%define release %mkrel 1
 %define oname libprojectM
 %define major 2
 %define libname %mklibname projectm %major
@@ -12,11 +12,8 @@ Name: %{name}
 Version: %{version}
 Release: %{release}
 Epoch: 1
-Source0: %{oname}-%{version}.tar.bz2
-# Adjust for libftgl 2.1.3+ - AdamW 2008/12
-Patch0: libprojectM-1.2.0-ftgl.patch
-#gw add missing include
-Patch1: libprojectM-1.2.0-header.patch
+Source0: %{oname}-%{version}-Source.tar.gz
+Patch1: libprojectM-2.0.0-fix-linking.patch
 License: LGPLv2+
 Group: System/Libraries
 Url: http://xmms-projectm.sourceforge.net/
@@ -61,11 +58,12 @@ projectM is a reimplementation of Milkdrop under OpenGL.
 
 
 %prep
-%setup -q -n %oname-%version
-%apply_patches
+%setup -q -n projectM-%{version}-Source
+rm -fr build CMakeCache.txt
+#patch0 -p1 -b .ftgl
+%patch1 -p0 -b .link
 
 %build
-export LDFLAGS=-lpthread
 %cmake
 %make
 
