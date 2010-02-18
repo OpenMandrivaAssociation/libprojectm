@@ -15,6 +15,8 @@ Epoch: 1
 Source0: %{oname}-%{version}.tar.bz2
 # Adjust for libftgl 2.1.3+ - AdamW 2008/12
 Patch0: libprojectM-1.2.0-ftgl.patch
+#gw add missing include
+Patch1: libprojectM-1.2.0-header.patch
 License: LGPLv2+
 Group: System/Libraries
 Url: http://xmms-projectm.sourceforge.net/
@@ -60,7 +62,7 @@ projectM is a reimplementation of Milkdrop under OpenGL.
 
 %prep
 %setup -q -n %oname-%version
-%patch0 -p1 -b .ftgl
+%apply_patches
 
 %build
 export LDFLAGS=-lpthread
