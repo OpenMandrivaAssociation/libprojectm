@@ -21,7 +21,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires: libftgl-devel
 BuildRequires: cmake
 BuildRequires: libglew-devel
-BuildRequires: gmp-devel
+BuildRequires: libgomp-devel
 Requires: %name-data >= %epoch:%version
 
 %description
