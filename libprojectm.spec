@@ -69,7 +69,7 @@ rm -fr build CMakeCache.txt
 %make
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 %makeinstall_std -C build
 
 #replace by symlink
@@ -84,7 +84,7 @@ ln -sf %_datadir/fonts/TTF/{Vera.ttf,VeraMono.ttf} %buildroot%_datadir/projectM/
 %endif
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %files data
 %defattr(-,root,root)
