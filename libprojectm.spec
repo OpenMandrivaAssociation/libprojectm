@@ -1,6 +1,6 @@
 %define name libprojectm
-%define version 2.0.0
-%define release %mkrel 4
+%define version 2.1.0
+%define release 1
 %define oname libprojectM
 %define major 2
 %define libname %mklibname projectm %major
@@ -12,16 +12,18 @@ Name: %{name}
 Version: %{version}
 Release: %{release}
 Epoch: 1
-Source0: %{oname}-%{version}-Source.tar.gz
-Patch1: libprojectM-2.0.0-fix-linking.patch
+Source0: http://downloads.sourceforge.net/project/projectm/2.1.0/projectM-complete-%{version}-Source.tar.gz
 License: LGPLv2+
 Group: System/Libraries
-Url: http://xmms-projectm.sourceforge.net/
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
+Url: http://projectm.sourceforge.net
 BuildRequires: libftgl-devel
 BuildRequires: cmake
 BuildRequires: libglew-devel
 BuildRequires: libgomp-devel
+BuildRequires: pulseaudio-devel
+Patch0:	libprojectm-2.1.0-libsuffix.patch
+Patch1:	libprojectm-2.1.0-path.patch
+
 Requires: %name-data >= %epoch:%version
 
 %description
@@ -59,44 +61,32 @@ projectM is a reimplementation of Milkdrop under OpenGL.
 
 
 %prep
-%setup -q -n projectM-%{version}-Source
-rm -fr build CMakeCache.txt
-#patch0 -p1 -b .ftgl
-%patch1 -p0 -b .link
+%setup -q -n projectM-complete-%{version}-Source
+%patch0 -p1
+%patch1 -p1
 
 %build
+cd src/libprojectM/
 %cmake
 %make
 
 %install
-rm -rf %{buildroot}
+cd src/libprojectM/
 %makeinstall_std -C build
+mv %{buildroot}/usr/lib/pkgconfig/ %{buildroot}/%{_libdir}
 
 #replace by symlink
 ln -sf %_datadir/fonts/TTF/{Vera.ttf,VeraMono.ttf} %buildroot%_datadir/projectM/fonts/
 
 
-%if %mdkversion < 200900
-%post -n %libname -p /sbin/ldconfig
-%endif
-%if %mdkversion < 200900
-%postun -n %libname -p /sbin/ldconfig
-%endif
-
-%clean
-rm -rf %{buildroot}
-
 %files data
-%defattr(-,root,root)
-%doc ChangeLog
+#% doc ChangeLog
 %_datadir/projectM/
 
 %files -n %libname
-%defattr(-,root,root)
 %_libdir/libprojectM.so.%{major}*
 
 %files -n %develname
-%defattr(-,root,root)
 %_libdir/pkgconfig/*.pc
 %_includedir/libprojectM/
 %_libdir/libprojectM.so
