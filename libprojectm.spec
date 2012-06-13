@@ -73,7 +73,9 @@ cd src/libprojectM/
 %install
 cd src/libprojectM/
 %makeinstall_std -C build
-mv %{buildroot}/usr/lib/pkgconfig/ %{buildroot}/%{_libdir}
+%ifarch x86_64
+	mv %{buildroot}/usr/lib/pkgconfig/ %{buildroot}/%{_libdir}
+%endif
 
 #replace by symlink
 ln -sf %_datadir/fonts/TTF/{Vera.ttf,VeraMono.ttf} %buildroot%_datadir/projectM/fonts/
