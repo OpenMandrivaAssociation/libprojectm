@@ -1,6 +1,6 @@
 %define name libprojectm
 %define version 2.1.0
-%define release 1
+%define release 2
 %define oname libprojectM
 %define major 2
 %define libname %mklibname projectm %major
@@ -23,6 +23,7 @@ BuildRequires: libgomp-devel
 BuildRequires: pulseaudio-devel
 Patch0:	libprojectm-2.1.0-libsuffix.patch
 Patch1:	libprojectm-2.1.0-path.patch
+Patch2:	projectm-libsuffix-pkgconf.patch
 
 Requires: %name-data >= %epoch:%version
 
@@ -64,6 +65,7 @@ projectM is a reimplementation of Milkdrop under OpenGL.
 %setup -q -n projectM-complete-%{version}-Source
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 cd src/libprojectM/
@@ -73,9 +75,9 @@ cd src/libprojectM/
 %install
 cd src/libprojectM/
 %makeinstall_std -C build
-%ifarch x86_64
-	mv %{buildroot}/usr/lib/pkgconfig/ %{buildroot}/%{_libdir}
-%endif
+#%ifarch x86_64
+#	mv %{buildroot}/usr/lib/pkgconfig/ %{buildroot}/%{_libdir}
+#%endif
 
 #replace by symlink
 ln -sf %_datadir/fonts/TTF/{Vera.ttf,VeraMono.ttf} %buildroot%_datadir/projectM/fonts/
