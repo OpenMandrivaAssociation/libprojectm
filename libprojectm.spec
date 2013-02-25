@@ -13,11 +13,11 @@ Source0:	http://downloads.sourceforge.net/project/projectm/2.1.0/projectM-comple
 License:	LGPLv2+
 Group:		System/Libraries
 Url:		http://projectm.sourceforge.net
-BuildRequires:	libftgl-devel
+BuildRequires:	pkgconfig(ftgl)
 BuildRequires:	cmake
-BuildRequires:	libglew-devel
-BuildRequires:	libgomp-devel
-BuildRequires:	pulseaudio-devel
+BuildRequires:	pkgconfig(glew)
+BuildRequires:	gomp-devel
+BuildRequires:	pkgconfig(libpulse)
 Patch0:		libprojectm-2.1.0-libsuffix.patch
 Patch1:		libprojectm-2.1.0-path.patch
 Patch2:		projectm-libsuffix-pkgconf.patch
