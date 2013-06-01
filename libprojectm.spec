@@ -7,7 +7,7 @@
 Summary:	Visualization library for OpenGL based on Milkdrop 
 Name:		libprojectm
 Version:	2.1.0
-Release:	3
+Release:	4
 Epoch:		1
 Source0:	http://downloads.sourceforge.net/project/projectm/2.1.0/projectM-complete-%{version}-Source.tar.gz
 License:	LGPLv2+
@@ -23,6 +23,13 @@ Patch1:		libprojectm-2.1.0-path.patch
 Patch2:		projectm-libsuffix-pkgconf.patch
 
 Requires:	%{name}-data >= %{EVRD}
+
+%track
+prog %name = {
+	url = http://sourceforge.net/projects/projectm/files/
+	version = %version
+	regex = "projectM-complete-(__VER__)-Source\.tar\.gz"
+}
 
 %description
 projectM is a reimplementation of Milkdrop under OpenGL.
@@ -59,9 +66,7 @@ projectM is a reimplementation of Milkdrop under OpenGL.
 
 %prep
 %setup -q -n projectM-complete-%{version}-Source
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
+%apply_patches
 
 %build
 cd src/libprojectM/
@@ -88,5 +93,5 @@ ln -sf %{_datadir}/fonts/TTF/{Vera.ttf,VeraMono.ttf} %{buildroot}%{_datadir}/pro
 
 %files -n %{devname}
 %{_libdir}/pkgconfig/*.pc
-%{_includedir}/libprojectM/
+%{_includedir}/libprojectM
 %{_libdir}/libprojectM.so
