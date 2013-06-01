@@ -57,7 +57,7 @@ Group:		Development/C
 Requires:	%{libname} = %{EVRD}
 Provides:	libprojectm-devel = %{EVRD}
 Obsoletes:	%mklibname -d projectm 0
-Requires:	libglew-devel
+Requires:	pkgconfig(glew)
 Conflicts:	%{oldlib}
 
 %description -n	%{devname}
