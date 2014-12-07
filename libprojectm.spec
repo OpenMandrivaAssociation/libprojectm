@@ -7,7 +7,7 @@ Summary:	Visualization library for OpenGL based on Milkdrop
 Name:		libprojectm
 Epoch:		1
 Version:	2.1.0
-Release:	11
+Release:	12
 License:	LGPLv2+
 Group:		System/Libraries
 Url:		http://projectm.sourceforge.net
