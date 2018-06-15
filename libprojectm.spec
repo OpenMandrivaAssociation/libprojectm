@@ -22,13 +22,6 @@ BuildRequires:	pkgconfig(ftgl)
 BuildRequires:	pkgconfig(glew)
 BuildRequires:	pkgconfig(libpulse)
 
-%track
-prog %{name} = {
-	url = http://sourceforge.net/projects/projectm/files/
-	version = %{version}
-	regex = "projectM-complete-(__VER__)-Source\.tar\.gz"
-}
-
 %description
 projectM is a reimplementation of Milkdrop under OpenGL.
 
