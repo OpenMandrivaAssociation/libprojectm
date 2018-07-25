@@ -15,6 +15,7 @@ Source0:	http://downloads.sourceforge.net/project/projectm/2.1.0/projectM-comple
 Patch0:		libprojectm-2.1.0-libsuffix.patch
 Patch1:		libprojectm-2.1.0-path.patch
 Patch2:		projectm-libsuffix-pkgconf.patch
+Patch3:		libprojectM-c++14.patch
 
 BuildRequires:	cmake
 BuildRequires:	gomp-devel
