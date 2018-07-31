@@ -58,6 +58,8 @@ projectM is a reimplementation of Milkdrop under OpenGL.
 rm -r src/WinLibs
 
 %build
+%global optflags %{optflags} -Wno-narrowing -Wno-c++11-narrowing
+
 cd src/libprojectM/
 %cmake -DINCLUDE-PROJECTM-TEST=OFF
 %make
