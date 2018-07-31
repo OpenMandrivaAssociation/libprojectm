@@ -19,6 +19,7 @@ Patch3:		libprojectM-c++14.patch
 
 BuildRequires:	cmake
 BuildRequires:	gomp-devel
+BuildRequires:	atomic-devel
 BuildRequires:	pkgconfig(ftgl)
 BuildRequires:	pkgconfig(glew)
 BuildRequires:	pkgconfig(libpulse)
