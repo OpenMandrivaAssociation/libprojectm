@@ -55,7 +55,7 @@ projectM is a reimplementation of Milkdrop under OpenGL.
 
 %prep
 %setup -qn projectM-complete-%{version}-Source
-%apply_patches
+%autopatch -p1
 rm -r src/WinLibs
 
 %build
