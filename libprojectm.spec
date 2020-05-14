@@ -23,6 +23,8 @@ BuildRequires:	pkgconfig(glew)
 BuildRequires:	pkgconfig(libpulse)
 BuildRequires:  pkgconfig(sdl2)
 BuildRequires:  pkgconfig(glm)
+BuildRequires:  pkgconfig(glesv2)
+BuildRequires:  pkgconfig(jack)
 
 # For Qt subpackage
 BuildRequires:  pkgconfig(Qt5Core)
@@ -83,7 +85,7 @@ projectM is a reimplementation of Milkdrop under OpenGL.
 %global optflags %{optflags} -Wno-narrowing -Wno-c++11-narrowing
 ./autogen.sh
 %configure --disable-static --disable-rpath --enable-sdl --enable-threading \
-    --enable-gles --enable-qt --enable-preset-subdirs
+    --enable-gles --enable-qt --enable-preset-subdirs --enable-llvm
 %make_build
 
 %install
