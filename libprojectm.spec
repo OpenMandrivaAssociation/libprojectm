@@ -21,6 +21,15 @@ BuildRequires:	atomic-devel
 BuildRequires:	pkgconfig(ftgl)
 BuildRequires:	pkgconfig(glew)
 BuildRequires:	pkgconfig(libpulse)
+BuildRequires:  pkgconfig(sdl2)
+
+# For Qt subpackage
+BuildRequires:  pkgconfig(Qt5Core)
+BuildRequires:  pkgconfig(Qt5Gui)
+BuildRequires:  pkgconfig(Qt5OpenGL)
+BuildRequires:  pkgconfig(Qt5Widgets)
+BuildRequires:  pkgconfig(Qt5Xml)
+BuildRequires:  cmake(Qt5LinguistTools)
 
 %description
 projectM is a reimplementation of Milkdrop under OpenGL.
