@@ -12,7 +12,7 @@ Release:	1
 License:	LGPLv2+
 Group:		System/Libraries
 Url:		http://projectm.sourceforge.net
-Source0:	https://github.com/projectM-visualizer/projectm/archive/v%{version}-%{shortname}.tar.gz
+Source0:	https://github.com/projectM-visualizer/projectm/archive/v%{version}/%{shortname}-%{version}.tar.gz
 
 
 BuildRequires:	cmake
