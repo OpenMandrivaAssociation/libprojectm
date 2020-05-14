@@ -26,13 +26,25 @@ BuildRequires:  pkgconfig(glm)
 
 # For Qt subpackage
 BuildRequires:  pkgconfig(Qt5Core)
+BuildRequires:  pkgconfig(Qt5Concurrent)
+BuildRequires:  pkgconfig(Qt5DBus)
 BuildRequires:  pkgconfig(Qt5Gui)
+BuildRequires:  pkgconfig(Qt5Help)
+BuildRequires:  pkgconfig(Qt5Network)
 BuildRequires:  pkgconfig(Qt5OpenGL)
+BuildRequires:  pkgconfig(Qt5PrintSupport)
 BuildRequires:  pkgconfig(Qt5Widgets)
 BuildRequires:  pkgconfig(Qt5Xml)
 BuildRequires:  cmake(Qt5LinguistTools)
 BuildRequires:  pkgconfig(Qt5Quick)
 BuildRequires:  pkgconfig(Qt5Qml)
+BuildRequires:  pkgconfig(Qt5QmlModels)
+BuildRequires:  pkgconfig(Qt5QuickTest)
+BuildRequires:  pkgconfig(Qt5Sql)
+BuildRequires:  pkgconfig(Qt5Svg)
+BuildRequires:  pkgconfig(Qt5Test)
+BuildRequires:  pkgconfig(Qt5Xml)
+BuildRequires:  pkgconfig(Qt5X11Extras)
 
 %description
 projectM is a reimplementation of Milkdrop under OpenGL.
