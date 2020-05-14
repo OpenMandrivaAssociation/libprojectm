@@ -7,7 +7,7 @@ Summary:	Visualization library for OpenGL based on Milkdrop
 Name:		libprojectm
 Epoch:		1
 Version:	2.1.0
-Release:	16
+Release:	17
 License:	LGPLv2+
 Group:		System/Libraries
 Url:		http://projectm.sourceforge.net
@@ -63,11 +63,11 @@ rm -r src/WinLibs
 
 cd src/libprojectM/
 %cmake -DINCLUDE-PROJECTM-TEST=OFF
-%make
+%make_build
 
 %install
 cd src/libprojectM/
-%makeinstall_std -C build
+%make_install -C build
 
 #replace by symlink
 ln -sf %{_datadir}/fonts/TTF/{Vera.ttf,VeraMono.ttf} %{buildroot}%{_datadir}/projectM/fonts/
