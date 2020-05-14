@@ -1,4 +1,5 @@
 %define	oname	libprojectM
+%define shortname projectm
 %define	major	2
 %define	libname	%mklibname projectm %{major}
 %define	devname	%mklibname -d projectm
@@ -6,16 +7,13 @@
 Summary:	Visualization library for OpenGL based on Milkdrop 
 Name:		libprojectm
 Epoch:		1
-Version:	2.1.0
-Release:	17
+Version:	3.1.3
+Release:	1
 License:	LGPLv2+
 Group:		System/Libraries
 Url:		http://projectm.sourceforge.net
-Source0:	http://downloads.sourceforge.net/project/projectm/2.1.0/projectM-complete-%{version}-Source.tar.gz
-Patch0:		libprojectm-2.1.0-libsuffix.patch
-Patch1:		libprojectm-2.1.0-path.patch
-Patch2:		projectm-libsuffix-pkgconf.patch
-Patch3:		libprojectM-c++14.patch
+Source0:	https://github.com/projectM-visualizer/projectm/archive/v%{version}-%{shortname}.tar.gz
+
 
 BuildRequires:	cmake
 BuildRequires:	gomp-devel
@@ -54,9 +52,8 @@ Provides:	libprojectm-devel = %{EVRD}
 projectM is a reimplementation of Milkdrop under OpenGL.
 
 %prep
-%setup -qn projectM-complete-%{version}-Source
+%setup -qn %{shortname}-%{version}
 %autopatch -p1
-rm -r src/WinLibs
 
 %build
 %global optflags %{optflags} -Wno-narrowing -Wno-c++11-narrowing
