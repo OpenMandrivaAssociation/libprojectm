@@ -22,6 +22,7 @@ BuildRequires:	pkgconfig(ftgl)
 BuildRequires:	pkgconfig(glew)
 BuildRequires:	pkgconfig(libpulse)
 BuildRequires:  pkgconfig(sdl2)
+BuildRequires:  pkgconfig(glm)
 
 # For Qt subpackage
 BuildRequires:  pkgconfig(Qt5Core)
