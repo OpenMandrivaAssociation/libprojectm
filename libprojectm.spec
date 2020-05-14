@@ -14,7 +14,7 @@ Group:		System/Libraries
 Url:		http://projectm.sourceforge.net
 Source0:	https://github.com/projectM-visualizer/projectm/archive/v%{version}/%{shortname}-%{version}.tar.gz
 
-
+BuildRequires:  qmake5
 BuildRequires:	cmake
 BuildRequires:	gomp-devel
 BuildRequires:	atomic-devel
