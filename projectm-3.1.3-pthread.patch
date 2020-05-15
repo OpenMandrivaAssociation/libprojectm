@@ -1,0 +1,12 @@
+diff -Nrup a/src/libprojectM/Makefile.in b/src/libprojectM/Makefile.in
+--- a/src/libprojectM/Makefile.in	2020-03-08 09:25:17.000000000 +0100
++++ b/src/libprojectM/Makefile.in	2020-04-27 23:34:56.062801320 +0200
+@@ -320,7 +320,7 @@ INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_P
+ LD = @LD@
+ LDFLAGS = @LDFLAGS@
+ LIBOBJS = @LIBOBJS@
+-LIBS = @LIBS@
++LIBS = @LIBS@ -lpthread
+ LIBTOOL = @LIBTOOL@
+ LIPO = @LIPO@
+ LN_S = @LN_S@
