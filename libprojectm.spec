@@ -12,7 +12,7 @@ Release:	1
 License:	LGPLv2+
 Group:		System/Libraries
 Url:		http://projectm.sourceforge.net
-Source0:	https://github.com/projectM-visualizer/projectm/archive/v%{version}/%{shortname}-%{version}.tar.gz
+Source0:        https://github.com/projectM-visualizer/projectm/releases/download/v%{version}/projectM-%{version}.tar.gz
 Patch0:     projectm-3.1.3-pthread.patch
 
 BuildRequires:  qmake5
@@ -79,7 +79,7 @@ Provides:	libprojectm-devel = %{EVRD}
 projectM is a reimplementation of Milkdrop under OpenGL.
 
 %prep
-%setup -qn %{shortname}-%{version}
+%setup -qn projectM-%{version}
 %autopatch -p1
 
 %build
