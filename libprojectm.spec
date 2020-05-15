@@ -83,6 +83,8 @@ projectM is a reimplementation of Milkdrop under OpenGL.
 %autopatch -p1
 
 %build
+export CC=gcc
+export CXX=g++
 %global optflags %{optflags} -Wno-narrowing -Wno-c++11-narrowing
 #./autogen.sh
 %configure --disable-static --disable-rpath --enable-sdl --enable-threading \
