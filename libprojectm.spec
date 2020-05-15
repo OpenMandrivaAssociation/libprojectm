@@ -13,6 +13,7 @@ License:	LGPLv2+
 Group:		System/Libraries
 Url:		http://projectm.sourceforge.net
 Source0:	https://github.com/projectM-visualizer/projectm/archive/v%{version}/%{shortname}-%{version}.tar.gz
+Patch0:     projectm-3.1.3-pthread.patch
 
 BuildRequires:  qmake5
 BuildRequires:	cmake
