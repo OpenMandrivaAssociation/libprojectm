@@ -3,7 +3,7 @@
 
 %define	oname	libprojectM
 %define shortname projectm
-%define	major	2
+%define	major	3
 %define	libname	%mklibname projectm %{major}
 %define	devname	%mklibname -d projectm
 
@@ -16,7 +16,11 @@ License:	LGPLv2+
 Group:		System/Libraries
 Url:		http://projectm.sourceforge.net
 Source0:        https://github.com/projectM-visualizer/projectm/releases/download/v%{version}/projectM-%{version}.tar.gz
-Patch0:     projectm-3.1.3-pthread.patch
+Patch0:		projectm-3.1.3-pthread.patch
+Patch1:		projectm-3.1.3-dont-hardcode-libc++.patch
+# Use -std=gnu++20 instead of -std=c++11: Current LLVM headers aren't
+# compatible with c++11 anymore
+Patch2:		projectm-3.1.3-cpp20.patch
 
 BuildRequires:  qmake5
 BuildRequires:	cmake
@@ -82,24 +86,30 @@ Provides:	libprojectm-devel = %{EVRD}
 projectM is a reimplementation of Milkdrop under OpenGL.
 
 %prep
-%setup -qn projectM-%{version}
-%autopatch -p1
+%autosetup -p1 -n projectM-%{version}
+# FIXME replace --disable-llvm with --enable-llvm once LLVM 10 is supported
+%configure --disable-static --disable-rpath --enable-sdl --enable-threading \
+    --enable-gles --enable-qt --enable-preset-subdirs --disable-llvm --enable-pulseaudio
 
 %build
-export CC=gcc
-export CXX=g++
-#%global optflags %{optflags} -Wno-narrowing -Wno-c++11-narrowing
-#./autogen.sh
-%configure --disable-static --disable-rpath --enable-sdl --enable-threading \
-    --enable-gles --enable-qt --enable-preset-subdirs --enable-llvm --enable-pulseaudio
 %make_build
 
 %install
-cd src/libprojectM/
-%make_install -C build
+%make_install
 
 #replace by symlink
-ln -sf %{_datadir}/fonts/TTF/{Vera.ttf,VeraMono.ttf} %{buildroot}%{_datadir}/projectM/fonts/
+ln -sf ../../fonts/TTF/{Vera.ttf,VeraMono.ttf} %{buildroot}%{_datadir}/projectM/fonts/
+
+%files
+%{_bindir}/projectM-jack
+%{_bindir}/projectM-pulseaudio
+%{_bindir}/projectM-unittest
+%{_bindir}/projectMSDL
+%{_datadir}/applications/projectM-jack.desktop
+%{_datadir}/applications/projectM-pulseaudio.desktop
+%{_datadir}/icons/hicolor/scalable/apps/projectM.svg
+%{_mandir}/man1/projectM-jack.1*
+%{_mandir}/man1/projectM-pulseaudio.1*
 
 %files data
 %{_datadir}/projectM/
@@ -111,4 +121,3 @@ ln -sf %{_datadir}/fonts/TTF/{Vera.ttf,VeraMono.ttf} %{buildroot}%{_datadir}/pro
 %{_includedir}/libprojectM
 %{_libdir}/libprojectM.so
 %{_libdir}/pkgconfig/*.pc
-
