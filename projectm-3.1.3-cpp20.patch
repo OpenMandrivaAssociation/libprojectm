@@ -1,9 +1,9 @@
 diff -uraN projectM-3.1.7/configure.ac omv-projectM-3.1.7/configure.ac
---- projectM-3.1.7/configure.ac	2020-07-28 21:02:26.428200000 +0200
-+++ omv-projectM-3.1.7/configure.ac	2020-07-29 17:34:04.989390793 +0200
-@@ -154,8 +154,8 @@
-                         CXXFLAGS="$CXXFLAGS -stdlib=libc++"])
- ])
+--- projectM-3.1.7/configure.ac	2020-07-29 17:30:59.625514783 +0200
++++ omv-projectM-3.1.7/configure.ac	2020-07-29 17:37:19.249750681 +0200
+@@ -150,8 +150,8 @@
+ AC_PROG_MKDIR_P
+ 
  
 -AX_CHECK_COMPILE_FLAG([-std=c++11], [
 -                        CXXFLAGS="$CXXFLAGS -std=c++11"])
