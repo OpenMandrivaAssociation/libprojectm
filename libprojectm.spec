@@ -20,7 +20,7 @@ Patch0:		projectm-3.1.3-pthread.patch
 #Patch1:		projectm-3.1.3-dont-hardcode-libc++.patch
 # Use -std=gnu++20 instead of -std=c++11: Current LLVM headers aren't
 # compatible with c++11 anymore
-Patch2:		projectm-3.1.3-cpp20.patch
+#Patch2:		projectm-3.1.3-cpp20.patch
 
 BuildRequires:  qmake5
 BuildRequires:	cmake
