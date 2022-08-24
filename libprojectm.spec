@@ -92,6 +92,8 @@ projectM is a reimplementation of Milkdrop under OpenGL.
     --enable-gles --enable-qt --enable-preset-subdirs --disable-llvm --enable-pulseaudio
 
 %build
+export CC=gcc
+export CXX=g++
 %make_build
 
 %install
