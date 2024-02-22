@@ -11,7 +11,7 @@ Summary:	Visualization library for OpenGL based on Milkdrop
 Name:		libprojectm
 Epoch:		1
 Version:	3.1.12
-Release:	3
+Release:	4
 License:	LGPLv2+
 Group:		System/Libraries
 Url:		http://projectm.sourceforge.net
@@ -21,6 +21,7 @@ Patch1:		projectm-3.1.3-dont-hardcode-libc++.patch
 # Use -std=gnu++20 instead of -std=c++11: Current LLVM headers aren't
 # compatible with c++11 anymore
 Patch2:		projectm-3.1.3-cpp20.patch
+Patch3:         projectm-3.1.12-clang.patch
 
 BuildRequires:  qmake5
 BuildRequires:	cmake
