@@ -99,7 +99,7 @@ projectM is a reimplementation of Milkdrop under OpenGL.
 %make_install -C build
 
 #replace by symlink
-ln -sf ../../fonts/TTF/{Vera.ttf,VeraMono.ttf} %{buildroot}%{_datadir}/projectM/fonts/
+#ln -sf ../../fonts/TTF/{Vera.ttf,VeraMono.ttf} %{buildroot}%{_datadir}/projectM/fonts/
 
 %files
 %{_bindir}/projectM-jack
