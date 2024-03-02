@@ -95,8 +95,7 @@ projectM is a reimplementation of Milkdrop under OpenGL.
 %cmake  \
         -DENABLE_SDL_UI=ON \
         -DENABLE_GLES=ON \
-        -DENABLE_SYSTEM_GLM=ON \
-        -DENABLE_EMSCRIPTEN=ON
+        -DENABLE_SYSTEM_GLM=ON
 %make_build
 
 %install
