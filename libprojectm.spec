@@ -15,7 +15,7 @@ Release:	1
 License:	LGPLv2+
 Group:		System/Libraries
 Url:		http://projectm.sourceforge.net
-Source0:        https://github.com/projectM-visualizer/projectm/releases/download/v%{version}/projectM-%{version}.tar.gz
+Source0:        https://github.com/projectM-visualizer/projectm/releases/download/v%{version}/libprojectM-%{version}.tar.gz
 Patch0:		projectm-3.1.3-pthread.patch
 Patch1:		projectm-3.1.3-dont-hardcode-libc++.patch
 # Use -std=gnu++20 instead of -std=c++11: Current LLVM headers aren't
@@ -88,16 +88,15 @@ Provides:	libprojectm-devel = %{EVRD}
 projectM is a reimplementation of Milkdrop under OpenGL.
 
 %prep
-%autosetup -p1 -n projectM-%{version}
+%autosetup -p1 -n libprojectM-%{version}
 # FIXME replace --disable-llvm with --enable-llvm once LLVM 10 is supported
-%configure --disable-static --disable-rpath --enable-sdl --enable-threading \
-    --enable-gles --enable-qt --enable-preset-subdirs --disable-llvm --enable-pulseaudio
+%cmake
 
 %build
 %make_build
 
 %install
-%make_install
+%make_install -C build
 
 #replace by symlink
 ln -sf ../../fonts/TTF/{Vera.ttf,VeraMono.ttf} %{buildroot}%{_datadir}/projectM/fonts/
