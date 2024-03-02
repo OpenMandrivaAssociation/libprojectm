@@ -90,9 +90,9 @@ projectM is a reimplementation of Milkdrop under OpenGL.
 %prep
 %autosetup -p1 -n libprojectM-%{version}
 # FIXME replace --disable-llvm with --enable-llvm once LLVM 10 is supported
-%cmake
 
 %build
+%cmake
 %make_build
 
 %install
