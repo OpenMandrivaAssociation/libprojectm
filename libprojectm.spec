@@ -16,12 +16,12 @@ License:	LGPLv2+
 Group:		System/Libraries
 Url:		http://projectm.sourceforge.net
 Source0:        https://github.com/projectM-visualizer/projectm/releases/download/v%{version}/libprojectM-%{version}.tar.gz
-Patch0:		projectm-3.1.3-pthread.patch
-Patch1:		projectm-3.1.3-dont-hardcode-libc++.patch
+#Patch0:		projectm-3.1.3-pthread.patch
+#Patch1:		projectm-3.1.3-dont-hardcode-libc++.patch
 # Use -std=gnu++20 instead of -std=c++11: Current LLVM headers aren't
 # compatible with c++11 anymore
-Patch2:		projectm-3.1.3-cpp20.patch
-Patch3:         projectm-3.1.12-clang.patch
+#Patch2:		projectm-3.1.3-cpp20.patch
+#Patch3:         projectm-3.1.12-clang.patch
 
 BuildRequires:	which
 BuildRequires:  qmake5
