@@ -92,7 +92,11 @@ projectM is a reimplementation of Milkdrop under OpenGL.
 # FIXME replace --disable-llvm with --enable-llvm once LLVM 10 is supported
 
 %build
-%cmake
+%cmake  \
+        -DENABLE_SDL_UI=ON \
+        -DENABLE_GLES=ON \
+        -DENABLE_SYSTEM_GLM=ON \
+        -DENABLE_EMSCRIPTEN=ON
 %make_build
 
 %install
