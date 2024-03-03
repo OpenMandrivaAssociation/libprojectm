@@ -93,7 +93,12 @@ projectM is a reimplementation of Milkdrop under OpenGL.
 
 %build
 %cmake  \
-        -DENABLE_SDL_UI=ON \
+        -G "Unix Makefiles" \
+	-DBUILD_SHARED_LIBS:BOOL=TRUE \
+	-DBUILD_TESTING:BOOL=FALSE \
+	-DENABLE_CXX_INTERFACE:BOOL=TRUE \
+	-DINCLUDE-PROJECTM-PULSEAUDIO:BOOL=TRUE \
+	-DINCLUDE-PROJECTM-JACK:BOOL=TRUE \
         -DENABLE_SYSTEM_GLM=ON
 %make_build
 
