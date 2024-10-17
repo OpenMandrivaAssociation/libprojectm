@@ -14,7 +14,7 @@ Version:	3.1.12
 Release:	4
 License:	LGPLv2+
 Group:		System/Libraries
-Url:		http://projectm.sourceforge.net
+Url:		https://projectm.sourceforge.net
 Source0:        https://github.com/projectM-visualizer/projectm/releases/download/v%{version}/projectM-%{version}.tar.gz
 Patch0:		projectm-3.1.3-pthread.patch
 Patch1:		projectm-3.1.3-dont-hardcode-libc++.patch
