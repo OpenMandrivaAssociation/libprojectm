@@ -23,6 +23,10 @@ Patch1:		projectm-3.1.3-dont-hardcode-libc++.patch
 Patch2:		projectm-3.1.3-cpp20.patch
 Patch3:         projectm-3.1.12-clang.patch
 
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
 BuildRequires:	which
 BuildRequires:  qmake5
 BuildRequires:	cmake
