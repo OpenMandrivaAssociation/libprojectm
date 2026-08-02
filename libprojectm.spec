@@ -3,64 +3,30 @@
 
 %define	oname	libprojectM
 %define shortname projectm
-%define	major	3
+%define	major	4
 %define	libname	%mklibname projectm %{major}
 %define	devname	%mklibname -d projectm
 
-Summary:	Visualization library for OpenGL based on Milkdrop 
+Summary:	Visualization library for OpenGL based on Milkdrop
 Name:		libprojectm
 Epoch:		1
-Version:	3.1.12
-Release:	4
+Version:	4.1.7
+Release:	1
 License:	LGPLv2+
 Group:		System/Libraries
-Url:		https://projectm.sourceforge.net
-Source0:        https://github.com/projectM-visualizer/projectm/releases/download/v%{version}/projectM-%{version}.tar.gz
+Url:		https://github.com/projectM-visualizer/projectm
+Source0:	https://github.com/projectM-visualizer/projectm/releases/download/v%{version}/projectM-%{version}.tar.gz
 Patch0:		projectm-3.1.3-pthread.patch
 Patch1:		projectm-3.1.3-dont-hardcode-libc++.patch
-# Use -std=gnu++20 instead of -std=c++11: Current LLVM headers aren't
-# compatible with c++11 anymore
+# Use C++20: current LLVM headers are not compatible with older C++ standards
 Patch2:		projectm-3.1.3-cpp20.patch
-Patch3:         projectm-3.1.12-clang.patch
+Patch3:		projectm-4.1.7-clang.patch
 
-BuildRequires:	autoconf
-BuildRequires:	automake
-BuildRequires:	libtool-base
-BuildRequires:	slibtool
-BuildRequires:	which
-BuildRequires:  qmake5
 BuildRequires:	cmake
-BuildRequires:	gomp-devel
-BuildRequires:	atomic-devel
-BuildRequires:	pkgconfig(ftgl)
-BuildRequires:	pkgconfig(glew)
-BuildRequires:	pkgconfig(libpulse)
-BuildRequires:  pkgconfig(sdl2)
-BuildRequires:  pkgconfig(glm)
-BuildRequires:  pkgconfig(glesv2)
-BuildRequires:  pkgconfig(jack)
-
-# For Qt subpackage
-BuildRequires:  pkgconfig(Qt5Core)
-BuildRequires:  pkgconfig(Qt5Concurrent)
-BuildRequires:  pkgconfig(Qt5DBus)
-BuildRequires:  pkgconfig(Qt5Gui)
-BuildRequires:  pkgconfig(Qt5Help)
-BuildRequires:  pkgconfig(Qt5Network)
-BuildRequires:  pkgconfig(Qt5OpenGL)
-BuildRequires:  pkgconfig(Qt5PrintSupport)
-BuildRequires:  pkgconfig(Qt5Widgets)
-BuildRequires:  pkgconfig(Qt5Xml)
-BuildRequires:  cmake(Qt5LinguistTools)
-BuildRequires:  pkgconfig(Qt5Quick)
-BuildRequires:  pkgconfig(Qt5Qml)
-BuildRequires:  pkgconfig(Qt5QmlModels)
-BuildRequires:  pkgconfig(Qt5QuickTest)
-BuildRequires:  pkgconfig(Qt5Sql)
-BuildRequires:  pkgconfig(Qt5Svg)
-BuildRequires:  pkgconfig(Qt5Test)
-BuildRequires:  pkgconfig(Qt5Xml)
-BuildRequires:  pkgconfig(Qt5X11Extras)
+BuildRequires:	pkgconfig(sdl2)
+BuildRequires:	pkgconfig(glm)
+BuildRequires:	pkgconfig(glesv2)
+BuildRequires:	pkgconfig(libglvnd)
 
 %description
 projectM is a reimplementation of Milkdrop under OpenGL.
@@ -92,38 +58,42 @@ Provides:	libprojectm-devel = %{EVRD}
 projectM is a reimplementation of Milkdrop under OpenGL.
 
 %prep
-%autosetup -p1 -n projectM-%{version}
-# FIXME replace --disable-llvm with --enable-llvm once LLVM 10 is supported
-%configure --disable-static --disable-rpath --enable-sdl --enable-threading \
-    --enable-gles --enable-qt --enable-preset-subdirs --disable-llvm --enable-pulseaudio
+# 4.x is CMake-only (no autotools configure); unpack + patches only in %%prep
+%autosetup -p1 -n projectm-4.1.7
 
 %build
-%make_build
+%cmake \
+	-DENABLE_SDL_UI=ON \
+	-DENABLE_GLES=ON \
+	-DENABLE_SYSTEM_GLM=ON \
+	-DENABLE_SYSTEM_PROJECTM_EVAL=OFF \
+	-DENABLE_INSTALL=ON
+%cmake_build
 
 %install
-%make_install
+%cmake_install
 
-#replace by symlink
-ln -sf ../../fonts/TTF/{Vera.ttf,VeraMono.ttf} %{buildroot}%{_datadir}/projectM/fonts/
+#replace by symlink if fonts dir is present
+if [ -d %{buildroot}%{_datadir}/projectM/fonts ]; then
+	ln -sf ../../fonts/TTF/Vera.ttf %{buildroot}%{_datadir}/projectM/fonts/Vera.ttf 2>/dev/null || :
+	ln -sf ../../fonts/TTF/VeraMono.ttf %{buildroot}%{_datadir}/projectM/fonts/VeraMono.ttf 2>/dev/null || :
+fi
 
 %files
-%{_bindir}/projectM-jack
-%{_bindir}/projectM-pulseaudio
-%{_bindir}/projectM-unittest
-%{_bindir}/projectMSDL
-%{_datadir}/applications/projectM-jack.desktop
-%{_datadir}/applications/projectM-pulseaudio.desktop
-%{_datadir}/icons/hicolor/scalable/apps/projectM.svg
-%{_mandir}/man1/projectM-jack.1*
-%{_mandir}/man1/projectM-pulseaudio.1*
+# Optional SDL test UI (when ENABLE_SDL_UI=ON)
+%{_bindir}/projectM-Test-UI
 
 %files data
 %{_datadir}/projectM/
 
 %files -n %{libname}
-%{_libdir}/libprojectM.so.%{major}*
+%{_libdir}/libprojectM-%{major}.so.%{major}*
+%{_libdir}/libprojectM-playlist.so.%{major}*
 
 %files -n %{devname}
-%{_includedir}/libprojectM
-%{_libdir}/libprojectM.so
+%{_includedir}/projectM-%{major}
+%{_libdir}/libprojectM-%{major}.so
+%{_libdir}/libprojectM-playlist.so
 %{_libdir}/pkgconfig/*.pc
+%{_libdir}/cmake/projectM4/
+%{_libdir}/cmake/projectM4Playlist/

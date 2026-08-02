@@ -1,0 +1,18 @@
+diff -Nru orig/src/libprojectM/MilkdropPreset/Waveform.cpp tree/src/libprojectM/MilkdropPreset/Waveform.cpp
+--- orig/src/libprojectM/MilkdropPreset/Waveform.cpp	2026-07-14 13:51:03.000000000 +0200
++++ tree/src/libprojectM/MilkdropPreset/Waveform.cpp	2026-08-02 21:17:05.803030167 +0200
+@@ -38,7 +38,13 @@
+ 
+ void Waveform::Draw(const PerFrameContext& presetPerFrameContext)
+ {
+-    m_mode = static_cast<WaveformMode>(m_presetState.waveMode % static_cast<int>(WaveformMode::Count));
++    // WaveformMode is an enum class; always use a scoped enumerator (clang rejects bare names).
++    const int modeCount = static_cast<int>(WaveformMode::Count);
++    int mode = m_presetState.waveMode % modeCount;
++    if (mode < 0) {
++        mode += modeCount;
++    }
++    m_mode = static_cast<WaveformMode>(mode);
+ 
+     if (!m_waveformMath)
+     {
